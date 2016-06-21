@@ -1,0 +1,237 @@
+#wmd-editor {
+	-moz-border-radius:5px;
+	padding:5px 10px 10px 10px;
+	background:#fff!important;
+}
+#wmd-preview {
+	border: 1px dotted #d3d3d3;
+	margin: 20px 0px;
+	padding: 10px;
+	background-color: #fff;
+	color:#666;
+	font: 13px arial;
+}
+#wmd-preview pre code, .comment-content pre code, #wmd-preview p {
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+.comment-form input[type='submit'] {
+	-moz-background-clip: border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	margin: 5px 0 0;
+	cursor: pointer;
+}
+.comment-form input[type='text'], textarea {
+	line-height: 1.75em;
+	word-spacing: 1.6px;
+	margin: 0.5em 0;
+	color: #666;
+	font: 13px arial;
+}
+.comment-form input[type='text'] {
+   margin: 0;
+    padding: 10px 5px;
+    width: 48%;
+   border: solid 1px #cfcdc4 ;
+   margin-left: 10px;
+   -moz-box-shadow: inset 0 0 3px #D4D2D2 ;
+   -webkit-box-shadow: inset 0 0 3px #D4D2D2 ;
+   box-shadow: inset 0 0 3px #D4D2D2 ;
+}
+.comment-form p{ margin-bottom: 0; }
+.comment-form label {
+	font: bold 12px arial;
+	color: #666;
+	margin: 0px !important;
+}
+.comment-form textarea {
+	margin: 0;
+	padding: 2px;		
+	border: solid 1px #cfcdc4;
+	width: 98%;
+}
+
+.commentlist cite a { /*font-weight:bold;
+	font-style:normal;
+	font-size:1.1em;
+	*/
+	text-decoration: none;
+}
+.commentlist cite a:hover {
+	text-decoration: underline;
+}
+
+#wmd-button-bar {
+	width: 100%;
+}
+#wmd-button-row {
+	position: relative;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-top: 10px;
+	padding: 0px;
+	height: 20px;
+	overflow: hidden;
+}
+.wmd-spacer {
+	width: 1px;
+	height: 20px;
+	margin-left: 14px;
+	position: absolute;
+	display: inline-block;
+	list-style: none;
+}
+.wmd-button {
+	width: 20px;
+	height: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+	position: absolute;
+	background-image: url(../img/wmd-buttons.png);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	display: inline-block;
+	list-style: none;
+}
+.wmd-button>a {
+	width: 20px;
+	height: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+	position: absolute;
+	display: inline-block;
+}
+/* sprite button slicing style information */
+#wmd-button-bar #wmd-bold-button {
+	left: 0px;
+	background-position: 0px 0;
+}
+#wmd-button-bar #wmd-italic-button {
+	left: 25px;
+	background-position: -20px 0;
+}
+#wmd-button-bar #wmd-link-button {
+	left: 50px;
+	background-position: -40px 0;
+}
+#wmd-button-bar #wmd-quote-button {
+	left: 80px;
+	background-position: -60px 0;
+}
+#wmd-button-bar #wmd-undo-button {
+	left: 110px;
+	background-position: -200px 0;
+}
+#wmd-button-bar #wmd-redo-button {
+	left: 135px;
+	background-position: -220px 0;
+}
+.wmd-prompt-background {
+	background-color: Black;
+}
+.wmd-prompt-dialog {
+	border: 1px solid #999999;
+	background-color: #F5F5F5;
+}
+.wmd-prompt-dialog>div {
+	font-size: 0.8em;
+	font-family: arial, helvetica, sans-serif;
+}
+.wmd-prompt-dialog>form>input[type="text"] {
+	border: 1px solid #999999;
+	color: black;
+}
+.wmd-prompt-dialog>form>input[type="button"] {
+	border: 1px solid #888888;
+	font-size: 0.9em;
+	font-weight: bold;
+}
+ul.commentlist {
+	float: left;
+	margin: 0em 0em 1em 0em !important;
+	width: 100%;
+}
+ul.commentlist li.li-comment {
+	list-style: none;
+	border-bottom: 1px solid #e4e4e4;
+	padding: 0.6em 0em;
+}
+ul.commentlist li.li-comment .comment address {
+	text-align: right;
+}
+#comment-count {
+	font-weight: normal !important;
+}
+ul.commentlist li.li-comment .comment address.entry-title cite.fn, ul.commentlist li.li-comment .comment address.entry-title cite.fn a {
+	color: #1E4E7E;
+	font-size: 1.0em;
+	font-family:Georgia,"Times New Roman",Times,serif;
+	
+}
+ul.commentlist li.li-comment .comment .comment-meta {
+	float: right;
+	clear: right;
+}
+ul.commentlist li.li-comment .comment .comment-meta abbr {
+	border: none;
+}
+ul.commentlist li.li-comment .comment .comment-meta abbr a {
+	color: #666;
+}
+ul.commentlist li.li-comment .comment .comment-content {
+	border-left: 1px dotted #d1d1d1;
+	min-height: 80px;
+	height: auto !important;
+	height: 80px;
+	padding-left: 10px;
+}
+.comment-pagination {
+	clear: both;
+	text-align: center;
+	color: #666;
+	padding:0px 0px 8px;
+	font-size:0.9em;
+}
+.comment-pagination .prev {
+	float: left;
+}
+.comment-pagination .next {
+	float: right;
+}
+.comment-pagination .current {
+	font-weight: bold;
+	font-size: 1em;
+}
+.comment-pagination .page-numbers {
+	padding: 0px 2px;
+}
+.comment-form h2 {
+	padding: 1em 0em;
+}
+.comment-form label {
+	color: #868485;
+	float: left;
+	width: 110px;
+	margin: 5px 0;
+}
+
+/*
+* css for the subscribe to comments box
+*/
+.comment-form .comment-subscribe p label {
+	width: auto;
+	float: none;
+}
+.comment-subscribe p {
+	margin-bottom: 1em;
+}
+/*#commentform .required {
+	font-size:0.9em;
+	font-weight:normal;
+}
+*/

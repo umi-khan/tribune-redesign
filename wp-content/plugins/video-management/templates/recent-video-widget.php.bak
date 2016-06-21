@@ -1,0 +1,55 @@
+<?php
+
+$videos_count = count($videos);
+
+$thumbnail_size_w = get_option('thumbnail_size_w');
+$thumbnail_size_h = get_option('thumbnail_size_h');
+$ratio = ( $thumbnail_size_w > 0 && $thumbnail_size_h > 0 ) ?  ( $thumbnail_size_h / $thumbnail_size_w ) : 0.75;
+
+$margin = 12;
+$thumbnail_width = 135;
+$thumbnail_height = round( $thumbnail_width * $ratio );
+
+$carousel_width  = ( ( $thumbnail_width + $margin ) * $videos_count );
+
+?>
+
+
+<div id="videos-widget" class="widget">
+	<h1 class="title">		
+		<a href="<?php echo $video_category_link;?>#video-albums"><?php echo esc_html($title); ?></a>		
+	</h1>
+	<div class="content clearfix">
+		<div class="controls">
+			<img src="<?php echo VM_PLUGIN_URL; ?>images/left-arrow-thin.gif" alt="&lt;" class="prev disabled" title="Previous" />
+			<img src="<?php echo VM_PLUGIN_URL; ?>images/right-arrow-thin.gif" alt="&gt;" class="next" title="Next" />
+		</div>
+		<div class="carousel ">
+			<div class="items" style="width:<?php echo $carousel_width;?>px;">
+				<?php				
+				$counter = 0;
+				foreach( (array) $videos as $video ) :					
+					$video_link = $video_category_link . $video->id . '/';
+					$counter++;
+					if ( $counter == 1 ) $class = "first";
+					else if ( $counter == $videos_count ) $class = "last";
+					else $class = "";
+				?>
+
+				<div class="item couplet <?php echo $class;?>">
+					<a href="<?php echo $video_link;?>" title="<?php echo esc_html( $video->title ); ?>">
+						<img class="image" alt="" src="<?php echo $video->thumbnail->url; ?>" width="<?php echo $thumbnail_width;?>px" height="<?php echo $thumbnail_height;?>px" />
+					</a>
+					<?php edit_post_link( null, '', '', $video->parent_id );?>
+					<h3 class="title">
+						<a href="<?php echo $video_link;?>" title="<?php echo esc_html( $video->title ); ?>">
+							<?php echo $video->title; ?>
+						</a>						
+					</h3>
+				</div>
+
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+</div>

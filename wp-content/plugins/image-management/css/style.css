@@ -1,0 +1,450 @@
+/* 
+    Document   : Image Management CSS
+    Created on : Jun 23, 2010, 2:37:47 PM
+    Description:
+        This plugin holds all the styles required by the Image Management plugin
+*/
+
+#im_popup {
+	width: 935px;
+	height: 600px;
+	display: none;
+}
+
+#im_popup_content {
+	
+}
+
+#im_popup_loading_img {
+	display: none;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	z-index: 2000;
+}
+
+.im_spinner_img {
+	display: none;
+	vertical-align: middle;
+	padding-left: 5px;
+}
+
+/*********** gallery related styles */
+
+#im_gallery {
+	padding: 0px 5px;
+}
+
+#im_thumbnails {
+	
+}
+
+/* root element for scrollable */
+#im_scrollable {
+	float: left;
+	height: 115px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	display: none;
+}
+
+#im_scrollable .items {
+	margin: 0px;
+	height: 100px;
+}
+/* scrollable items related ends here */
+
+/* tooltip styling. */
+.tooltip {
+	display: none;
+	font-size: 11px;
+	background: #333;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
+	color: #fff;
+}
+/* tooltip styling ends here */
+
+#im_thumbnails ul {
+	list-style: none outside none;
+}
+
+#im_thumbnails ul li {
+	margin: 5px 17px;
+	background: #FFF;
+	cursor: pointer;
+	float: left;
+	position: relative;
+}
+
+#im_thumbnails ul li img.thumb {
+	background: #FFF;
+	border: 1px solid #CCC;
+	padding: 5px;
+	width: 100px;
+	height: 75px;
+}
+
+#im_thumbnails ul li.active img.thumb {
+	background: #871910;
+}
+
+#im_thumbnails #im_upload {
+	background: #EEE;
+	border: 1px solid #CCC;
+	float:left;
+	padding: 5px;
+	width: 100px;
+	height: 75px;
+	margin: 5px 25px 0 20px;
+	float: left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#im_thumbnails #im_upload img {
+	margin: 16px;
+}
+
+#im_delete_img {
+	display: none;
+}
+
+.im_delete_icon {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	left: 91px;
+	top: 66px;
+	width: 24px;
+	height: 24px;
+	background: transparent;
+}
+
+#im_set_default_img {
+	display: none;
+}
+
+.im_set_default_icon {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	left: 67px;
+	top: 66px;
+	width: 24px;
+	height: 24px;
+	background: transparent;
+}
+
+#im_thumbnails ul li h4 {
+	margin: 0;
+}
+
+#im_thumbnails ul li .im_additional_details {
+	display: none;
+}
+
+/************* gallery related ends here */
+
+/************* image editor related **************/
+
+.im_loading_img {
+	visibility: hidden;
+}
+
+.im_button {
+	margin-left: 10px;
+}
+
+.im_image_editor {
+	background: #F9F9F9;
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0 5px 10px 5px;
+	position: relative;
+}
+
+.im_image_editor .im_viewport {
+	cursor: move;
+	overflow: hidden;
+	width: 640px;
+	height: 480px;
+	background: #333;
+	position: relative;
+}
+
+.im_image_editor .im_viewport img {
+	position: absolute;
+}
+
+.im_image_editor .im_viewport_container {
+	float: left;
+	margin-left: 3px;
+}
+
+.im_image_editor .im_thumb_container {
+	float: left;
+	margin-left: 15px;
+}
+
+.im_image_editor .im_image_editor_btns {
+	margin: 8px 0;
+}
+
+.im_image_editor .im_thumbnail_preview {
+	
+}
+
+.im_image_editor .im_zoom_slider {
+	position: absolute;
+	height: 190px;
+}
+
+.im_image_editor .im_thumb_box {
+	position: absolute;
+	background: #BBCCEE;
+}
+
+.im_image_editor .im_thumb_preview_box {
+	width: 160px;
+	height: 120px;
+	overflow: hidden;
+	background: #333;
+}
+
+.im_image_editor .im_tools {
+	border-bottom: 1px dotted #CCC;
+	padding: 10px 0;
+}
+
+.im_image_editor .im_tools a {
+	background: url(../images/editor-icons.gif);
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background-position: -1px -8px;
+}
+
+.im_image_editor .im_tools a.im_thumbbox_toogle {
+	background-position: -1px 123px;
+}
+
+.im_image_editor .im_tools a.im_thumbbox_maximize {
+	background-position: -1px -8px;
+}
+
+.im_image_editor .im_details {
+	margin-top: 10px;
+}
+
+.im_image_editor .im_details label {
+	display: block;
+	padding-top: 0.2em;
+	text-align: left;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0.5em;
+}
+
+.im_image_editor .im_details input[type="text"],
+.im_image_editor .im_details .text {
+	border: 1px solid #DFDFDF;
+}
+
+.im_image_editor .im_details textarea {
+	border: 1px solid #DFDFDF;
+}
+
+/************* image editor related ends here **************/
+
+/************* image uploader related *********************/
+
+.im_image_uploader {
+	background: #F9F9F9;
+	font-size: 11px;
+	line-height: 18px;
+	margin: 0 0 8px 5px;
+	padding: 15px;
+}
+
+.im_image_uploader h3 {
+	color: #5A5A5A;
+	margin: 1em 0;
+	font: normal 1.6em Georgia, "Times New Roman", Times, serif;
+}
+
+.im_image_uploader label {
+	padding-top: 0.2em;
+	text-align: left;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0.5em;
+}
+
+.im_image_uploader .im_upload_msg {
+	display : none;
+}
+
+/************* image uploader related ends here ***********/
+
+/************* image library related *********************/
+
+#im_media_library {
+	background: #FFFFFF;
+	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+	font-size: 12px;
+	background: #F9F9F9;
+	line-height: 18px;
+	margin: 0 0 8px 5px;
+	padding: 15px;
+}
+
+#im_media_library #im_media_search_form {
+	margin: 0 0 10px;
+}
+
+#im_media_library .header {
+	margin-bottom: 10px;
+}
+
+#im_media_library h3 {
+	color: #5A5A5A;
+	margin: 0 0 5px;
+	font: normal 1.6em Georgia, "Times New Roman", Times, serif;
+	float: left;
+}
+
+.im_uploadbox {
+	margin: 0 0 0 10px;
+	float: left;
+}
+
+.im_searchbox {
+	float: right;
+	margin: 0;
+}
+
+.im_library_navigation {
+	clear: both;
+	height: 30px;
+	margin: 6px 0 4px;
+	vertical-align: middle;
+}
+
+.im_library_pages {
+	color: #555555;
+	display: block;
+	float: right;
+	font-size: 11px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.im_library_navigation .filter_actions {
+	padding: 2px 8px 0 0;
+	float: left;
+}
+
+.im_library_navigation .im_library_pages .current {
+	background: #DFDFDF;
+	border-color: #D3D3D3;
+}
+
+#im_media_search_form .im_library_pages a, .im_library_pages span.current {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid;
+	padding: 3px 6px;
+	text-decoration: none;
+}
+
+#im_media_search_form .im_library_pages a {
+	border-color: #D3D3D3;
+	background: #f2f2f2;
+	color: #666;
+}
+
+.im_library_navigation .im_library_pages span.current {
+	border-color: #D3D3D3;
+	background: #D3D3D3;
+	color: #666;
+}
+
+.im_library_navigation .dots {
+	border-color: transparent;
+}
+
+.im_library_navigation .next, .im_library_navigation .prev {
+	border-color: transparent;
+	color: #21759B;
+}
+
+#im_media_search_form .im_library_navigation select {
+	border-style: solid;
+	border-width: 1px;
+	padding: 2px;
+	vertical-align: top;
+	width: auto;
+	background-color: #FFFFFF;
+	border-color: #DFDFDF;
+	font-size: 12px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#im_media_library #im_library_items {
+	border: 1px solid #DFDFDF;
+	background: #FFF;
+}
+
+#im_media_library .im_library_item {
+	border-bottom: 1px solid #DFDFDF;
+	width: 100%;
+}
+
+#im_media_library #im_library_items .last {
+	border-bottom: 0;
+}
+
+#im_media_library .im_library_item img.thumb {
+	float: left;
+	margin: 3px 2px;
+	height: 60px;
+	width: 80px;
+}
+
+#im_media_library .im_library_item .details {
+	float: left;
+	width: 550px;
+}
+
+#im_media_library .im_library_item .title {
+	margin: 0px 2px;
+}
+
+#im_media_library .im_library_item .caption {
+	margin: 0px 2px;
+	font-size: 11px;
+	color: #AAA;
+}
+
+#im_media_library .im_library_item .add_media {
+	float: right;
+	margin: 7px;
+}
+
+/************* image library related ends here ***********/
+
+/* hides buttons that shouldnt be showed */
+#editor-toolbar, #media-buttons {
+	display: none;
+}
+/* end of hides buttons that shouldnt be showed */

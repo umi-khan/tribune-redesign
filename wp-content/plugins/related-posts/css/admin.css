@@ -1,0 +1,177 @@
+#erp_metabox_content {
+	
+}
+
+#erp_metabox_content .erp_pointer {
+	background: url("../images/arrow-right.gif") no-repeat scroll 0 0 transparent;
+	float: left;
+	height: 7px;
+	margin-left: -1px;
+	margin-top: 42px;
+	width: 5px;
+}
+
+#erp_metabox_content .erp_header {
+	background-color: #CCCCCC;
+	color: #FFFFFF;
+	font-size: 12px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+}
+
+.erp_error {
+	color: red;
+	font-size: 10px;
+}
+
+.erp_success {
+	color: green;
+	font-size: 10px;
+}
+
+/************************ search related *********************/
+#erp_metabox_content #erp_search_posts {
+	float: left;
+	width: 60%;
+	margin: 0 0 0 8px;
+	border: 1px solid #CCCCCC;
+}
+
+#erp_metabox_content #erp_search_results {
+	border-top: 1px solid #EEEEEE;
+}
+
+#erp_metabox_content #erp_search_field {
+	width: 240px;
+}
+
+#erp_metabox_content #erp_duration {
+	width: 113px;
+}
+
+#erp_search_results h5 {
+	margin: 7px 0 5px 10px;
+	font-size: 12px;
+}
+
+#erp_metabox_content #erp_search_results p {
+	font-size: 12px;
+	margin: 11px 6px;
+}
+
+#erp_search_results ul {
+	padding: 10px;
+}
+
+#erp_search_results li {
+	background: url("../images/add.gif") no-repeat scroll right center transparent;
+	border-bottom: 1px dotted #DDDDDD;
+	margin: 0;
+	color: #333333;
+	padding: 8px 5px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#erp_search_results li:hover {
+	background-color: #F5F5F5;
+}
+
+#erp_search_results ul > li:last-child {
+	border-bottom: none;
+}
+
+#erp_search_results .erp_date {
+	font-size: 11px;
+	color: #999999;
+}
+
+#erp_search_results .erp_post_link {
+	color: #21759B;
+	font-size: 11px;
+	text-decoration: underline;
+}
+
+#erp_metabox_content .erp_loading_img {
+	display: none;
+	width: 16px;
+	height: 16px;
+	margin-top: -3px;
+	vertical-align: middle;
+}
+
+#erp_metabox_content #erp_search_results p.erp_pagination {
+	margin: 0 0 5px 15px;
+	padding: 0;
+	height: 30px;
+}
+
+#erp_search_results p.erp_pagination a {
+	border: 1px solid #999999;
+	display: block;
+	float: left;
+	font-size: 11px;
+	margin: 0 5px 0 0;
+	padding: 3px;
+	text-align: center;
+	text-decoration: none;
+	width: 55px;
+}
+
+#erp_search_results p.erp_pagination a:hover {
+	background: #EEEEEE;
+}
+
+
+/*************************** selections related *********************/
+#erp_metabox_content #erp_selected_posts {
+	float: left;
+	width: 36%;
+	margin: 0 0 0 8px;
+	border: 1px solid #CCCCCC;
+}
+
+#erp_metabox_content #erp_selected_posts p {
+	font-size: 12px;
+	margin: 11px 6px;
+}
+
+#erp_metabox_content #erp_save_posts_btn {
+	margin: 8px;
+}
+
+#erp_selections ul {
+	
+}
+
+#erp_selections li {
+	background: #F5F5F5;
+	border: 1px solid #DDDDDD;
+	margin: 5px;
+	font-size: 12px;
+	padding: 8px;
+	color: #465E74;
+	cursor: move;
+}
+
+#erp_selections a.erp_del_post_link {
+	background: url(../images/xit.gif) no-repeat;
+	cursor: pointer;
+	display: block;
+	float: right;
+	height: 10px;
+	margin: 6px 0 0 6px;
+	overflow: hidden;
+	text-indent: -9999px;
+	width: 10px;
+}
+
+#erp_metabox_content a.erp_del_post_link:hover {
+	background-position: -10px 0;
+}
+
+.erp_selection_placeholder {
+	height: 1.5em;
+	line-height: 1.2em;
+}

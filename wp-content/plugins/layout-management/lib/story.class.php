@@ -1,0 +1,329 @@
+<?php
+
+class LM_story
+{
+	private $tooltip	    = false;
+	private $excerpt	    = false;
+	private $content        = false;
+	private $title          = false;
+	private $author         = false;
+	private $date           = false;
+	private $date_gmt       = false;
+	private $location       = false;
+	private $permalink      = false;
+	private $trends			= false;
+	
+	private $comment_count  = false;
+
+	private $image_thumb    = false;
+	private $image_medium   = false;
+	private $image_large    = false;
+	private $image_full     = false;
+
+	private $id;
+	private $category_id;
+	private $group_id;
+	private $position;
+	private $html_classes;
+	private $html_id;
+
+	private $post_details;
+	
+	public function __construct($post_details, $category_id, $group_id, $position, $is_manageable = true)
+	{
+		if(is_object($post_details) && is_numeric($category_id) &&
+				  is_numeric($group_id) && is_numeric($position))
+		{
+			$this->id				= $post_details->ID;
+			$this->post_details	= $post_details;			
+			$this->category_id	= $category_id;
+			$this->group_id		= $group_id;
+			$this->position 		= $position;
+			$this->html_id			= "id-{$this->id}";
+			$this->html_classes  = sprintf("story %s cat-%d group-%d position-%d",
+													 $is_manageable ? 'manageable' : '',
+													 $this->category_id,
+													 $this->group_id,
+													 $this->position);
+		}
+	}
+
+	public static function get_story( $post_or_id, $category_id = 0, $group_id = 0, $position = 0 )
+	{
+		if (is_numeric($post_or_id)) $post_or_id = get_post($post_or_id);		
+		return new self( $post_or_id, $category_id, $group_id, $position, false );		
+	}
+
+	public function __get($property)
+	{
+		// if a property has already been loaded
+		if($this->$property !== FALSE)
+		{
+			return $this->$property;
+		}
+		
+		// tooltip
+		if($property == 'tooltip')
+		{
+			$this->tooltip = self::get_tooltip($this->post_details);
+			return $this->tooltip;
+		}
+		// excerpt
+		if($property == 'excerpt')
+		{
+			$this->excerpt = self::get_excerpt($this->post_details);
+			return $this->excerpt;
+		}
+
+		// content
+		if($property == 'content')
+		{
+			$this->content = self::_get_content($this->post_details->post_content);
+			return $this->content;
+		}
+
+		// title
+		if($property == 'title')
+		{
+			$this->title = esc_html($this->post_details->post_title);
+			return $this->title;
+		}
+
+		// author
+		if($property == 'author')
+		{
+			$this->author = $this->_get_author($this->id, $this->post_details->post_author);
+			return $this->author;
+		}
+
+		// date
+		if($property == 'date')
+		{
+			$this->date = $this->_get_date($this->post_details->post_date);
+			return $this->date;
+		}
+
+		// gmt date
+		if($property == 'date_gmt')
+		{
+			$this->date_gmt = $this->_get_date_gmt($this->post_details->post_date_gmt);
+			return $this->date_gmt;
+		}
+
+		// date
+		if($property == 'location')
+		{
+			$this->location = $this->_get_location($this->id);
+			return $this->location;
+		}
+		
+		// permalink
+		if($property == 'permalink')
+		{
+			$this->permalink = get_permalink($this->id);
+			return $this->permalink;
+		}
+
+		// trends
+		if($property == 'trends')
+		{
+			$this->trends = get_the_tags($this->id);
+			return $this->trends;
+		}
+
+		// comment count
+		if($property == 'comment_count')
+		{
+			$this->comment_count = $this->post_details->comment_count;
+			return $this->comment_count;
+		}
+
+		// image thumbnail
+		if($property == 'image_thumb')
+		{
+			$this->image_thumb = $this->_get_image('thumbnail');
+			return $this->image_thumb;
+		}
+
+		// medium image
+		if($property == 'image_medium')
+		{
+			$this->image_medium = $this->_get_image('medium');
+			return $this->image_medium;
+		}
+
+		// large image
+		if($property == 'image_large')
+		{
+			$this->image_large = $this->_get_image('large');
+			return $this->image_large;
+		}
+
+		// full image
+		if($property == 'image_full')
+		{
+			$this->image_full = $this->_get_image('full');
+			return $this->image_full;
+		}
+	}
+
+	private function _get_image($type)
+	{
+		$output = '';
+
+		$input  = array(
+			'post_parent'		=> $this->id,
+			'post_type'			=> 'attachment',
+			'post_mime_type'	=> 'image',
+			'orderby'			=> 'menu_order',
+			'order'				=> 'ASC'
+		);
+		
+		$images =& get_children($input);
+		
+		$default_alt_text = '';
+		$alt_text			= get_option("file_gallery_alt_text");
+		$url					= false;
+		
+		if (is_array($images) && !empty($images))
+		{
+			$image = array_shift($images);
+
+			$image_data = wp_get_attachment_image_src($image->ID, $type);
+			
+			$url		= $image_data[0];
+			$width	= $image_data[1];
+			$height	= $image_data[2];
+			
+			if(!$url)
+			{
+				$url = $image->guid;
+			}
+			
+         $alt_text = ($alt_text) ? $alt_text : $image->post_name;
+		}
+		else
+		{
+			$default_image_name = 'story-default-'.$type.'.gif';
+			$url = get_bloginfo('template_url').'/img/'.$default_image_name;
+			
+			$alt_text = ($alt_text) ? $alt_text : '';
+		}
+
+		return new LM_story_image($url, $width, $height, $alt_text);
+	}
+
+	public static function get_tooltip($wp_post)
+	{
+		if(!is_object($wp_post) || !isset($wp_post->ID))
+			return false;
+
+		$tooltip = $wp_post->post_excerpt;
+
+		// if the excerpt does not exist create it from post content
+		if( !$tooltip )
+		{
+			$tooltip = self::trim_content($wp_post->post_content, LM_config::STORY_EXCERPT_LENGTH);
+		}
+
+		return $tooltip;
+	}
+
+	public static function get_excerpt($wp_post)
+	{
+		if(!is_object($wp_post) || !isset($wp_post->ID))
+			return false;
+
+		$excerpt	= $wp_post->post_excerpt;
+		
+		// if the excerpt does not exist create it from post content
+		if( !$excerpt )
+		{
+			$excerpt = self::trim_content($wp_post->post_content, LM_config::STORY_EXCERPT_LENGTH);
+		}
+		return self::_word_break($excerpt);
+	}
+
+	public static function trim_content($content, $length)
+	{
+		if(!is_string($content))
+			return false;
+
+		if(!is_numeric($length))
+			return false;
+
+		$content = trim($content);
+
+		// Limit the post by wordwarp to check for more tag
+		$content = wordwrap(strip_tags($content), $length, "[lpa]");
+		$token_position = strpos($content, '[lpa]');
+
+		return ($token_position === false) ? $content : substr($content, 0, $token_position) . '...';
+	}
+
+	private static function _word_break($text, $break_index = 10)
+	{
+		return preg_replace('/([a-zA-Z]{' . ($break_index - 4) . '})(?![^a-zA-Z])/', '$1&shy;', $text);
+	}
+
+	private function _get_location($story_id)
+	{
+		return '';
+	}
+
+	private function _get_content($content)
+	{
+		$content = apply_filters('the_content', $content);
+		$content = str_replace(']]>', ']]&gt;', $content);
+		return $content;
+	}
+
+	private function _get_author($story_id, $author_id)
+	{
+		return get_author_posts_url($author_id);
+	}
+
+	private function _get_date_gmt($gmdate)
+	{
+		return date('Y-m-d\TH:i:s \G\M\T', strtotime($gmdate));
+	}
+
+	private function _get_date($date)
+	{
+		return date('F j, Y', strtotime($date));
+	}
+
+	public static function update_story($story_id, $title, $excerpt)
+	{
+		if(!is_numeric($story_id) && empty($title) && empty($excerpt))
+			return false;
+
+		$title		= trim($title);
+		$post_info  = array(
+			'ID'				=> $story_id,
+			'post_title'	=> $title,
+			'post_excerpt' => $excerpt
+		);
+
+		if(!wp_update_post($post_info))
+			return false;
+
+		return true;
+	}
+}
+
+class LM_story_image
+{
+	public $src;
+	public $width;
+	public $height;
+	public $alt;
+
+	public function  __construct($src, $width, $height, $alt)
+	{
+		$this->src = $src;
+		$this->width = $width;
+		$this->height = $height;
+		$this->alt = $alt;
+	}
+}

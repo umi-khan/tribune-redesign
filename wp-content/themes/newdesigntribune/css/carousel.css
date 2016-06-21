@@ -1,0 +1,10 @@
+.carousel{overflow:hidden;position:relative;width:100%}.carousel-vertical{width:auto;height:100%}.carousel .items
+.item{float:left;cursor:pointer}.carousel .items
+.last{margin-right:auto !important}.carousel-vertical .items
+.last{margin-bottom:auto !important}.carousel .items
+.first{margin-left:auto !important}.carousel-vertical .items
+.first{margin-top:auto !important}.carousel a.prev, a.carousel-prev, .carousel + a.prev,
+.carousel a.next,a.carousel-next,.carousel+a.next{background-repeat:no-repeat;background-attachment:scroll;background-color:transparent;background-position:0 top;height:100%;overflow:hidden;width:24px;cursor:pointer;float:left;position:absolute;top:0;z-index:1}.carousel-vertical a.prev, a.carousel-vertical-prev, .carousel-vertical + a.prev,
+.carousel-vertical a.next,a.carousel-vertical-next,.carousel-vertical+a.next{height:24px;width:100%;left:0;top:auto;background-position:left 0}.carousel a.prev,a.carousel-prev,.carousel+a.prev{background-image:url("../img/gallery-carousel-prev.png")}.carousel a.next,a.carousel-next,.carousel+a.next{background-image:url("../img/gallery-carousel-next.png");right:0px}.carousel-vertical a.prev,a.carousel-vertical-prev,.carousel-vertical+a.prev{top:24px}.carousel-vertical a.next,a.carousel-vertical-next,.carousel-vertical+a.next{bottom:24px;right:auto}.carousel .items .current,
+.carousel img.disabled, .carousel
+a.disabled{cursor:default}

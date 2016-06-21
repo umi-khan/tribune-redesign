@@ -1,0 +1,48 @@
+Before activating the plugin, create the following stored function manually:
+
+Stored Function:
+=====================
+Copy and past the following code in your favourite sql utility:
+
+
+
+DELIMITER $$
+
+USE `wp_news`$$
+
+DROP FUNCTION IF EXISTS `wp_tag_post_score`$$
+
+CREATE FUNCTION `wp_tag_post_score`(post_hits INT, post_position INT, post_date_gmt DATETIME) 
+	 RETURNS FLOAT
+    READS SQL DATA
+BEGIN
+	
+	DECLARE pos INT;
+	DECLARE age FLOAT;
+	DECLARE hits INT;
+	DECLARE score FLOAT;
+    
+	/* limit the position to 10 */
+	IF ISNULL( post_position ) OR ( post_position > 10 ) THEN SET pos = 10;
+	ELSE SET pos = post_position;
+	END IF;
+	
+	/* find the age of posts in hours */
+	SET age = TIME_TO_SEC( TIMEDIFF( UTC_TIMESTAMP , post_date_gmt ) ) / ( 3600 );
+	
+	/* set the hits */
+	SET hits = post_hits;
+	
+	# this is our scoring formula
+	#set score = ( ( 1 / ( pos + 1 ) ) * 0.2 ) + ( ( 1 / ( age + 1 ) ) * 0.5 ) + ( log10( hits ) * 0.3 );
+	
+	# this is the reddit scoring formula
+	#set score = LOG10( hits ) + ( UNIX_TIMESTAMP( post_date_gmt ) - 1134028003 ) / 45000;
+	
+	# this is the hacker news scoring formula
+	SET score = ( hits - 1 ) / ( age + 2 ) ^ 1.5;
+	
+	RETURN score;
+    END$$
+
+DELIMITER ;

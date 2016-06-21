@@ -1,0 +1,18 @@
+#lm_layout_metabox {
+	padding: 5px;
+	margin: 5px;
+	border-bottom:1px dotted #EEE;
+}
+
+#lm_layout_metabox .lm_select {
+	width: 170px;
+}
+
+/*********** styles to modify edit/add post screen display ***************/
+#titlediv {
+	margin-bottom: 10px;
+}
+
+#postexcerpt .inside p, #content_path_row, #content_tbl tr.mceLast {
+	display: none;
+}

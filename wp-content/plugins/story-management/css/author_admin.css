@@ -1,0 +1,76 @@
+/* 
+    Document   : author_admin
+    Created on : Aug 11, 2010, 3:16:20 PM
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#sm_authors {
+	
+}
+
+#sm_authors .add_author_box {
+	clear: both;
+}
+
+#sm_authors #add_item_hint {
+	display: none;
+	color: #CCC;
+}
+
+#sm_authors #autocomplete_field {
+	width: 180px;
+	font-size: 11px;
+	color: #666;
+}
+
+#sm_authors #new_item_content {
+	display: none;
+}
+
+#sm_authors #selected_items {
+	font-size: 12px;
+	margin-left: 14px;
+	overflow: auto;
+}
+
+#sm_authors #selected_items span {
+	display: block;
+	float: left;
+	font-size: 11px;
+	line-height: 1.8em;
+	margin-right: 15px;
+	white-space: nowrap;
+}
+
+#sm_authors a.item_del_btn {
+	background: url(../images/xit.gif) no-repeat;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 10px;
+	margin: 6px 0 0 0;
+	overflow: hidden;
+	text-indent: -9999px;
+	width: 10px;
+}
+
+#sm_authors a.item_del_btn:hover {
+	background-position: -10px 0;
+}
+
+#sm_authors #loading_img {
+	display: none;
+	width: 16px;
+	height: 16px;
+	margin-top: -3px;
+	vertical-align: middle;
+}
+
+#sm_authors #warning_img {
+	display: none;
+	width: 16px;
+	height: 16px;
+	margin-top: -3px;
+	vertical-align: middle;
+}

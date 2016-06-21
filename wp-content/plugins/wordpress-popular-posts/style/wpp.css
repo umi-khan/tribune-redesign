@@ -1,0 +1,103 @@
+/*
+Wordpress Popular Posts plugin stylesheet
+Developed by Hector Cabrera
+cabrerahector.com | @cabrerahector
+
+Use the following classes to style your popular posts list as you like.
+*/
+
+/* Styles the "Sorry, no data so far" message */
+.wpp-no-data {
+}
+
+/* UL - Popular Posts container styles */
+.wpp-list {
+margin:0;	
+}
+.widget.popular-posts{
+	background: none;
+}
+
+.widget.popular-posts h2{
+
+}
+	/* LI - Post container styles */
+	.wpp-list li  {
+	    float: none;
+	    clear: both;
+	    border-bottom: 1px solid #e5e5e5;
+	    font-size: 13px;
+	    overflow: hidden;
+	    margin: 0;
+	    padding: 10px 4px;
+	    margin-bottom: 10px;
+	    list-style: none;
+	}
+	.wpp-list li:last-child{ border: none; }
+	.wpp-list li:nth-child(even){
+    background: #fcfcfc;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+.number_count{
+    padding-right: 10px;
+    line-height: 20px;
+    margin-top: 1px;
+    font-size: 24px;
+    font-weight: bold;
+    width: 28px;
+    float: left;
+    text-align: right;
+}
+	
+	/* Styles for the popular post in view */
+	.wpp-list li.current {
+	}
+	
+		/* Thumbnail styles */
+		.wpp-thumbnail {
+			display:inline;
+			float:left;
+			margin:0 5px 0 0;
+			border:none;
+		}
+
+		/* Title styles */
+		.wpp-post-title {
+		}
+		
+		/* Excerpt styles */
+		.wpp-excerpt {
+		}
+		
+		/* Stats tag styles */
+		.post-stats {
+			display:block;
+			font-size:9px;
+			font-weight:bold;
+		}
+			
+			/* Comments count styles */
+			.wpp-comments {
+			}
+			
+			/* Views count styles */
+			.wpp-views {
+			}
+			
+			/* Author styles */
+			.wpp-author {
+			}
+			
+			/* Post date styles */
+			.wpp-date {
+			}
+			
+			/* Post category styles */
+			.wpp-category {
+			}
+		
+		/* WP-PostRatings styles */
+		.wpp-rating {
+		}

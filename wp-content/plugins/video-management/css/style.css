@@ -1,0 +1,242 @@
+/* 
+    Document   : Post Videos CSS
+    Created on : Jun 23, 2010, 2:37:47 PM
+    Description:
+        This plugin holds all the styles required by the Image Management plugin
+*/
+
+#vm_popup {
+	width: 900px;
+	height: 560px;
+	display: none;
+}
+
+#vm_popup_content {
+	
+}
+
+#vm_popup_loading_img {
+	display: none;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	z-index: 2000;
+}
+
+/*********** gallery related styles */
+
+#vm_gallery {
+	padding: 0px 5px;
+}
+
+#vm_thumbnails {
+	
+}
+
+/* root element for scrollable */
+#vm_scrollable {
+	float: left;
+	height: 115px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	display: none;
+}
+
+#vm_scrollable .items {
+	margin: 0px;
+	height: 100px;
+}
+/* scrollable items related ends here */
+
+/* tooltip styling. */
+.tooltip {
+	display: none;
+	font-size: 11px;
+	background: #333;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	padding: 10px;
+	color: #fff;
+	max-width: 400px;
+}
+/* tooltip styling ends here */
+
+#vm_thumbnails ul {
+	list-style: none outside none;
+}
+
+#vm_thumbnails ul li {
+	margin: 5px 17px;
+	background: #FFF;
+	cursor: pointer;
+	float: left;
+	position: relative;
+}
+
+#vm_thumbnails ul li img.thumb {
+	background: #FFF;
+	border: 1px solid #CCC;
+	padding: 5px;
+	width: 100px;
+	height: 75px;
+}
+
+#vm_thumbnails ul li.active img.thumb {
+	background: #871910;
+}
+
+#vm_thumbnails #vm_add_video {
+	background: #EEE;
+	border: 1px solid #CCC;
+	float:left;
+	padding: 5px;
+	width: 100px;
+	height: 75px;
+	margin: 5px 25px 0 20px;
+	float: left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#vm_thumbnails #vm_add_video img {
+	margin: 5px 0 0 19px;
+}
+
+#vm_delete_img {
+	display: none;
+}
+
+.vm_delete_icon {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	left: 91px;
+	top: 66px;
+	width: 24px;
+	height: 24px;
+	background: transparent;
+}
+
+#vm_set_default_img {
+	display: none;
+}
+
+.vm_set_default_icon {
+	display: block;
+	visibility: hidden;
+	position: absolute;
+	left: 67px;
+	top: 66px;
+	width: 24px;
+	height: 24px;
+	background: transparent;
+}
+
+#vm_thumbnails ul li h4 {
+	margin: 0;
+}
+
+/************* gallery related ends here */
+
+#vm_loading_img {
+	visibility: hidden;
+}
+
+.vm_button {
+	margin-left: 10px;
+}
+
+/************* add video related *********************/
+
+.vm_add_video {
+	background: #F9F9F9;
+	font-size: 11px;
+	line-height: 18px;
+	margin: 0 0 8px 5px;
+	padding: 15px;
+}
+
+.vm_image_uploader h3 {
+	color: #5A5A5A;
+	margin: 1em 0;
+	font: normal 1.6em Georgia, "Times New Roman", Times, serif;
+}
+
+.vm_image_uploader label {
+	padding-top: 0.2em;
+	text-align: left;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0.5em;
+}
+
+.vm_image_uploader .vm_add_video_msg {
+	display : none;
+}
+
+/************* add video related ends here ***********/
+
+/************* edit video related ***********/
+
+.vm_video_editor {
+	background: #F9F9F9;
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0 5px 10px 5px;
+}
+
+.vm_video_editor .vm_video_container {
+	float: left;
+	margin-left: 3px;
+}
+
+.vm_video_editor .vm_video {
+	width: 600px;
+	height: 450px;
+	border: 1px dotted #CCC;
+}
+
+.vm_video_editor .vm_thumb_container {
+	float: left;
+	margin-left: 15px;
+}
+
+.vm_video_editor .vm_thumb_container img.thumb {
+	width: 120px;
+	height: 90px;
+	border: 1px dotted #CCC;
+	padding: 10px;
+	background: #FFF;
+	display: block;
+}
+
+.vm_video_editor .vm_edit_btns {
+	margin: 8px 0;
+}
+
+.vm_video_editor .vm_details {
+	margin-top: 10px;
+}
+
+.vm_video_editor .vm_details label {
+	display: block;
+	padding-top: 0.2em;
+	text-align: left;
+	font-size: 13px;
+	font-weight: bold;
+	margin: 0.5em;
+}
+
+.vm_video_editor .vm_details input[type="text"],
+.vm_video_editor .vm_details .text {
+	border: 1px solid #DFDFDF;
+}
+
+.vm_video_editor .vm_details textarea {
+	border: 1px solid #DFDFDF;
+}
+
+/************* edit video related ends here ***********/

@@ -1,0 +1,818 @@
+jQuery(window).load(function()
+{
+	Layout_management.init(LM_config.current_category_id);
+});
+				
+Layout_management = function()
+{	
+   /**
+    * The markup to add for editable links
+    */
+   var editable_link_markup	= '<img src="/wp-content/themes/express/img/edit.png" class="layout_edit_img">';
+   
+   var category_id;
+
+   /**
+    * Search for all the elements with the editable class and append the editable link to those elements.
+      Also loads the layout management content and the story quick editor form
+	  @param int Category id of the current page
+    */
+   var init = function(cat_id)
+   {
+      category_id = cat_id;
+
+		add_links_to_editable_stories();
+		
+		LM_popup.init();
+   };
+   
+   var add_links_to_editable_stories = function()
+   {
+      jQuery('.story').each(function(index, curr_story_element)
+      {
+			curr_story_element = jQuery(curr_story_element);
+
+			var links = curr_story_element.find('a');
+
+			var does_story_have_link = links.length > 0;
+			if(does_story_have_link)
+			{
+				var editable_item = jQuery(curr_story_element.find('a')[0]);
+				
+				var editable_link = jQuery(editable_link_markup).click(function()
+				{
+					curr_story_element.addClass('highlight');
+					
+					LM_current_story.set_story(curr_story_element);
+					LM_quick_editor.set_story(LM_current_story);
+		
+					LM_popup.open(curr_story_element);
+				});
+
+				editable_item.after(editable_link);
+
+				editable_item.parent().hover(
+					function() {jQuery( this ).find( '.layout_edit_img' ).show();},
+					function() {jQuery( this ).find( '.layout_edit_img' ).hide();}
+				);
+
+				editable_link.hide();
+			}
+      });
+   };
+
+   return {
+      editable_link_markup : editable_link_markup,
+      init						: init
+   };
+
+}();
+
+
+LM_current_story = function()
+{
+	var obj				= null;
+	var id				= null;
+	var category_id	= null;
+	var group_id		= null;
+	var position		= null;
+	var title			= null;
+	var excerpt	= null;
+
+	var set_story = function(story)
+	{
+		LM_current_story.obj = story;
+		LM_current_story.id = story.attr('id').match(/.*id-([0-9]+).*/)[1];
+		
+		var classes = story.attr('class').split(' ');
+
+		for(var i=0; i < classes.length; i++)
+		{
+			if(classes[i].indexOf('cat-') != -1)
+			{
+				LM_current_story.category_id = classes[i].match(/.*cat-([0-9]+).*/)[1];
+			}
+			
+			if(classes[i].indexOf('group-') != -1)
+			{
+				LM_current_story.group_id = classes[i].match(/.*group-([0-9]+).*/)[1];
+			}
+
+			if(classes[i].indexOf('position-') != -1)
+			{
+				LM_current_story.position = classes[i].match(/.*position-([0-9]+).*/)[1];
+			}
+		}
+
+		LM_current_story.title   = jQuery.trim(story.find('.title:eq(0)').text());
+		LM_current_story.excerpt = jQuery.trim(story.find('.excerpt:eq(0)').text());
+		if(LM_current_story.excerpt == '')
+		{
+			if(story.find('a.title').length != 0)
+				LM_current_story.excerpt = jQuery.trim(story.find('a.title').attr('title'));
+			else
+				LM_current_story.excerpt = jQuery.trim(story.find('.title a').attr('title'));
+		}
+
+		if(false == LM_current_story.title || false == LM_current_story.excerpt)
+		{
+			var story_details = jQuery('#lm_stories').find('#storyid-' + LM_current_story.category_id + '_' + LM_current_story.id);
+
+			if(story_details.length)
+			{
+				
+				if(false == LM_current_story.title) 
+					LM_current_story.title   = jQuery.trim(story_details.find('.lm_story_title').text());
+
+				if(false == LM_current_story.excerpt)
+					LM_current_story.excerpt = jQuery.trim(story_details.find('.lm_story_excerpt').text());
+			}
+		}
+	}
+
+	return {
+		set_story: set_story,
+		obj: obj,
+		id: id,
+		category_id: category_id,
+		group_id: group_id,
+		position: position,
+		title: title,
+		excerpt: excerpt
+	}
+}();
+
+
+
+LM_popup = function()
+{	
+
+	var popup = null;
+	var width = 830;
+	var height = 560;
+	
+	var init = function()
+   {
+		popup = jQuery('#lm_popup');
+		
+		// create tabs 0. Quick Editor, 1. Layout Editor
+		jQuery('.lm_tabs').tabs( '.lm_tabs_content', {current : 'lm_current_tab'} );
+
+		// do not let the user select the layout editor tab if the story is not manageable
+		var tabs_api = jQuery('.lm_tabs').data('tabs');
+		tabs_api.onBeforeClick(function(event, index)
+		{
+			if(index == 1 && false == LM_current_story.obj.hasClass('manageable')) return false;
+		});
+
+		LM_menu.init();
+
+		LM_stories.init();
+
+		LM_quick_editor.init();
+
+		// create the modal dialog
+		popup.dialog({
+			 autoOpen: false,
+			 title: 'Stories Layout Management',
+			 modal: true,
+			 resizable: false,
+			 draggable: false,
+			 close: close_handler,
+			 width: width,
+			 height: height,
+			 dialogClass: 'lm-quickeditor'
+		  });
+   }
+
+	var open = function(current_story)
+	{
+		// display the quick editor tab when popup is opened
+		var tabs_api = jQuery('.lm_tabs').data('tabs');
+		tabs_api.click(0);
+		
+		popup.dialog('open');
+	}
+	
+   var close_handler = function()
+   {
+	  jQuery('.highlight').removeClass('highlight');
+   };
+
+	return {
+		init		: init,
+		open		: open
+	}
+
+}();
+
+
+
+LM_menu = function()
+{
+
+	var menu = null;
+
+	var selected_id = 0;
+	
+	var init = function()
+	{
+		menu = jQuery('#lm_menu');
+
+		menu.find('.lm_section_link').click(function()
+		{
+			var current_element = jQuery(this);
+
+			var sub_menu = current_element.next();
+
+			// show the submenu if any
+			if((sub_menu.is('ul')) && (!sub_menu.is(':visible')))
+			{
+				menu.find('ul:visible').slideUp('normal');
+				sub_menu.slideDown('normal');
+			}
+
+			// show the content
+			if(selected_id != null)
+			{
+				LM_stories.hide(selected_id);
+			}
+
+			selected_id = current_element.attr('id').match(/.*catid-([0-9]+).*/)[1];
+
+			LM_stories.show(selected_id);
+
+			return false;
+		});
+	}
+	
+	return {
+		init: init
+	}
+
+}();
+
+
+LM_stories = function()
+{	
+	var stories = null;
+
+	var last_action = null;
+
+	var last_selected_story = null;
+
+	// this is the id of the last selected story,
+	// this id is a combination of categoryid and postid and it is saved as categoryid_postid
+	var last_selected_id = null;
+
+	var init = function()
+	{
+		stories = jQuery('#lm_stories');
+
+		LM_story_editor.init(stories);
+		LM_story_setter.init(stories);
+
+		add_click_handler();
+	}
+
+	var add_click_handler = function()
+	{
+		stories.click(function(event)
+		{
+			var target = jQuery(event.target);
+
+			var current_story = target.parents('.lm_story');
+
+			var is_jQuery_object = current_story.length > 0;
+
+			// if the set story link is clicked
+			if(target.hasClass('lm_story_set_link'))
+			{
+				if(is_jQuery_object)
+				{
+					story_set_click_handler(current_story);
+					return false;
+				}
+			}
+
+			// if the edit story link is clicked
+			if(target.hasClass('lm_story_edit_link'))
+			{
+				if(is_jQuery_object)
+				{
+					story_edit_click_handler(current_story);
+					return false;
+				}
+			}
+		});
+	}
+
+	var story_edit_click_handler = function(current_story)
+	{
+		if(last_action == 'edit_story')
+		{
+			// if the last time user was editing a story, close the open story editor
+			LM_story_editor.close();
+
+			var story_id = current_story.attr('id').match(/.*storyid-([0-9_]+).*/)[1];
+			if(story_id == last_selected_id)
+			{
+				unhighlight_story();
+				delete_cached_story();
+				return;
+			}
+		}
+		else if(last_action == 'set_story')
+		{
+			// close the currently open story setter
+			LM_story_setter.close();
+		}
+
+		last_action = 'edit_story';
+		
+		highlight_story(current_story);
+		cache_current_story(current_story);
+
+		// show the story editor
+		LM_story_editor.show(last_selected_id, last_selected_story);
+	}
+
+	var story_set_click_handler = function(current_story)
+	{
+		if(last_action == 'set_story')
+		{
+			// close the currently open story setter
+			LM_story_setter.close();
+
+			var story_id = current_story.attr('id').match(/.*storyid-([0-9_]+).*/)[1];
+			if(story_id == last_selected_id)
+			{
+				unhighlight_story();
+				delete_cached_story();
+				return;
+			}
+		}
+		else if(last_action == 'edit_story')
+		{
+			// if the last time user was editing a story, close the open story editor
+			LM_story_editor.close();
+		}
+
+		last_action = 'set_story';
+
+		highlight_story(current_story);
+		cache_current_story(current_story);
+
+		// show the story setter
+		LM_story_setter.show(last_selected_id, last_selected_story);
+	}
+
+	var cache_current_story = function(current_story)
+	{
+		last_selected_id = current_story.attr('id').match(/.*storyid-([0-9_]+).*/)[1];
+		last_selected_story = current_story;
+	}
+
+	var delete_cached_story = function()
+	{
+		last_selected_id = null;
+		last_selected_story = null;
+	}
+
+	var highlight_story = function(story)
+	{
+		unhighlight_story();
+		
+		// highlight the story that the user wants to edit
+		story.addClass('highlight-story');
+	}
+
+	var unhighlight_story = function()
+	{
+		// remove the highlighting of the last story being edited/set
+		if(last_selected_story && last_selected_story.length)
+		{
+			last_selected_story.removeClass('highlight-story');
+		}
+	}
+
+	var show = function(selected_section_id)
+	{
+		jQuery('#stories-catid-' + selected_section_id).show();
+	}
+
+	var hide = function(selected_section_id)
+	{
+		jQuery('#stories-catid-' + selected_section_id).hide();
+	}
+
+	return {
+		init: init,
+		show: show,
+		hide: hide
+	}
+}();
+
+
+
+
+LM_story_setter = function()
+{
+	var stories = null;
+	var setter = null;
+
+	var last_selected_story = null;
+	var last_selected_id = null;
+	
+	var init = function(stories_container)
+	{
+		stories = stories_container;
+		setter = jQuery('#lm_story_setter');
+	}
+
+	var show = function(story_id, story_obj)
+	{		
+		last_selected_id = story_id;
+		last_selected_story = story_obj;
+		
+		var setter_content = '<div id="storysetter-' + last_selected_id + '" class="lm_story_setter">'
+								 + setter.html()
+								 + '</div>';
+
+		last_selected_story.append(setter_content);
+
+		last_selected_story.find('#lm_story_setter_message').hide();
+		last_selected_story.find('#lm_story_setter_cancel_button').click(close);
+		last_selected_story.find('#lm_story_setter_submit_button').click(save);
+
+		last_selected_story.find('.lm_story_set_link').text('cancel');
+	}
+
+	var save = function()
+	{
+		var page = document.location.href;
+		var category_id = LM_current_story.category_id;
+		var group_id = LM_current_story.group_id;
+		var do_cycle = (last_selected_story.find('#lm_story_setter_cycle').attr('checked')) ? 0 : 1;
+		
+		var old_story = 
+		{
+			id: LM_current_story.id,
+			position: LM_current_story.position
+		};
+
+		var new_story =
+		{
+			id: last_selected_id.split('_')[1]
+		};
+
+		// call story_editor's update layout method. which in return will call the before and after ajax functions
+		LM_rpc.update_layout(page, category_id, group_id, old_story, new_story, do_cycle, before_layout_update, after_layout_update);
+	}
+
+	var close = function()
+	{
+		// close the currently open story editor
+		if(last_selected_id != null)
+		{
+			jQuery('#storysetter-' + last_selected_id).remove();
+			last_selected_story.find('.lm_story_set_link').text('set');
+
+			last_selected_story = null;
+			last_selected_id = null;
+		}
+	}
+
+	var before_layout_update = function(XMLHttpRequest)
+	{
+		// disable the buttons in the story editor
+		last_selected_story.find('#lm_story_setter_cancel_button').attr('disabled', true);
+		last_selected_story.find('#lm_story_setter_submit_button').attr('disabled', true);
+
+		stories
+			.find('#lm_story_setter_message')
+			.show()
+			.find('p')
+			.focus()
+			.text('Saving changes ...');
+	}
+
+	var after_layout_update = function(XMLHttpRequest, textStatus)
+	{
+		var msg_holder = stories.find('#lm_story_setter_message');
+
+		var response = xml_json_rpc_helper.parse_response(XMLHttpRequest);
+
+		// enable the buttons in the story editor
+		last_selected_story.find('#lm_story_setter_cancel_button').attr('disabled', false);
+		last_selected_story.find('#lm_story_setter_submit_button').attr('disabled', false);
+
+		if(response.error)
+		{
+			msg_holder.find('p').text(response.error.message);
+		}
+		else
+		{
+			msg_holder.find('p').text('The changes you have made to the layout have been saved.');
+			window.location.reload(true);
+		}
+	}
+
+	return {
+		init : init,
+		show : show,
+		save : save,
+		close : close
+	}
+}();
+
+
+
+
+LM_story_editor = function()
+{
+	var stories             = null;
+	var editor              = null;
+	
+	var last_selected_story = null;
+	var last_selected_id    = null;
+
+	var before_story_update = function()
+	{
+		// disable the buttons in the story editor
+		last_selected_story.find('#lm_story_editor_cancel_button').attr('disabled', true);
+		last_selected_story.find('#lm_story_editor_submit_button').attr('disabled', true);
+
+		stories
+			.find('#lm_story_editor_message')
+			.show()
+			.find('p')
+			.focus()
+			.text('Saving changes ...');
+	}
+
+	var after_story_update = function(XMLHttpRequest)
+	{
+		var msg_holder = stories.find('#lm_story_editor_message');
+
+		var response = xml_json_rpc_helper.parse_response(XMLHttpRequest);
+
+		// enable the buttons in the story editor
+		last_selected_story.find('#lm_story_editor_cancel_button').attr('disabled', false);
+		last_selected_story.find('#lm_story_editor_submit_button').attr('disabled', false);
+
+		if(response.error)
+		{
+			msg_holder.find('p').text(response.error.message);
+		}
+		else
+		{
+			last_selected_story.find('.lm_story_title').text(last_selected_story.find('#lm_story_editor_title').val());
+			last_selected_story.find('.lm_story_excerpt').text(last_selected_story.find('#lm_story_editor_excerpt').val());
+
+			msg_holder.find('p').text('The changes you have made in the story have been saved.');
+		}
+	}
+
+	return {
+		init : function(stories_container)
+		{
+			stories = stories_container;
+
+			editor = jQuery('#lm_story_editor');
+		},
+		
+		set_last_selected_story : function(story)
+		{
+			last_selected_story = story;
+		},
+		
+		set_last_selected_id : function(id)
+		{
+			last_selected_id = id;
+		},
+
+		show : function(story_id, story_obj)
+		{
+			if(last_selected_id == story_id)
+			{
+				LM_story_editor.close();
+
+				return;
+			}
+
+			last_selected_id    = story_id;
+			last_selected_story = story_obj;
+
+			var title   = jQuery.trim(last_selected_story.find('.lm_story_title').text());
+			var excerpt = jQuery.trim(last_selected_story.find('.lm_story_excerpt').text());
+
+			var editor_content = '<div id="storyeditor-' + last_selected_id + '" class="lm_story_editor">'
+									 + editor.html()
+									 + '</div>';
+
+			last_selected_story.append(editor_content);
+
+			last_selected_story.find('#lm_story_editor_message').hide();
+
+			last_selected_story.find('#lm_story_editor_title').val(title);
+			last_selected_story.find('#lm_story_editor_excerpt').val(excerpt);
+
+			last_selected_story.find('#lm_story_editor_cancel_button').click(LM_story_editor.close);
+			last_selected_story.find('#lm_story_editor_submit_button').click(LM_story_editor.save);
+
+			last_selected_story.find('.lm_story_edit_link').text('cancel');
+
+			// excerpt related
+			LM_excerpt.manage( last_selected_story.find('#lm_story_editor_excerpt'),
+				last_selected_story.find('.lm_excerpt_chars_counter'), last_selected_story.find('.lm_excerpt_error_content') );
+		},
+
+		save : function()
+		{
+			// last_selected_id is actually categoryid_postid
+			var story_id = last_selected_id.split('_')[1];
+
+			if( false == LM_excerpt.validate( last_selected_story.find('#lm_story_editor_excerpt'),
+				last_selected_story.find('.lm_excerpt_error_content') ) )
+			{
+				LM_excerpt.show_error( last_selected_story.find('#lm_story_editor_excerpt'),
+					last_selected_story.find('.lm_excerpt_error_content') );
+					
+				return;
+			}
+
+			var story_obj =
+			{
+				post_id	:	story_id,
+				title	   :	'<![CDATA[' + last_selected_story.find('#lm_story_editor_title').val() + ']]>',
+				excerpt	:	'<![CDATA[' + last_selected_story.find('#lm_story_editor_excerpt').val() + ']]>'
+			};
+
+			// call story_editor's update method. which in return will call the before and after ajax functions
+			LM_rpc.update_story(story_obj, before_story_update, after_story_update);
+		},
+		
+		close : function()
+		{
+			if( last_selected_id == null ) return;
+			
+			// close the currently open story editor
+			jQuery('#storyeditor-' + last_selected_id).remove();
+
+			last_selected_story.find('.lm_story_edit_link').text('quick edit');
+
+			last_selected_story = null;
+			last_selected_id = null;
+		}
+	}
+}();
+
+
+
+LM_quick_editor = function()
+{
+	var quick_editor          = null;
+	var story_id              = null;
+	var title_inputbox        = null;
+	var excerpt_inputbox      = null;
+	
+	var complete_edit_link    = null;
+	var complete_edit_linkbox = null;
+
+	var excerpt_chars_counter = null;
+	var excerpt_error_content = null;
+
+	var add_links_to_quick_editor = function()
+   {
+	   quick_editor.find('#quickeditor_submit_button').click(function()
+		{
+			// validate excerpt
+			if( false == LM_excerpt.validate( excerpt_inputbox, excerpt_error_content ) )
+			{
+				LM_excerpt.show_error( excerpt_inputbox, excerpt_error_content );
+				return;
+			}
+
+			var story_obj = {
+				post_id	:	story_id,
+				title		:	'<![CDATA[' + title_inputbox.val() + ']]>',
+				excerpt	:	'<![CDATA[' + excerpt_inputbox.val() + ']]>'
+			};
+
+			// call story_editor's update method. which in return will call the before and after ajax functions
+			LM_rpc.update_story(story_obj, before_story_update, after_story_update);
+		});
+   }
+
+	var before_story_update = function()
+	{
+		quick_editor.find('#quickeditor_submit_button').attr('disabled', true);
+
+		quick_editor
+			.find('#quickeditor_message')
+			.show()
+			.find('p')
+			.focus()
+			.text('Saving changes ...');
+	}
+
+	var after_story_update = function(XMLHttpRequest)
+	{
+		var msg_holder = quick_editor.find('#quickeditor_message');
+
+		var response = xml_json_rpc_helper.parse_response(XMLHttpRequest);
+
+		quick_editor.find('#quickeditor_submit_button').attr('disabled', false);
+
+		if(response.error)
+			msg_holder.find('p').text(response.error.message);
+		else
+		{
+			msg_holder.find('p').text('The changes you have made in the story have been saved.');
+			window.location.reload(true);
+		}
+	}
+
+	return {
+		init : function()
+		{
+			// quick editor
+			quick_editor   = jQuery('#lm_quick_editor');
+
+			title_inputbox	= quick_editor.find('#lm_quick_editor_title');
+
+			// excerpt related
+			excerpt_inputbox      = quick_editor.find( '#lm_quick_editor_excerpt' );
+			excerpt_error_content = quick_editor.find( '.lm_excerpt_error_content' );
+			excerpt_chars_counter = quick_editor.find( '.lm_excerpt_chars_counter' );
+
+			complete_edit_linkbox = quick_editor.find('#lm_quick_editor_edit_link');
+			complete_edit_link    = complete_edit_linkbox.attr('href');
+
+			add_links_to_quick_editor();
+		},
+		
+		set_story : function(story)
+		{
+			story_id = story.id;
+
+			title_inputbox.val(story.title);
+			excerpt_inputbox.val(story.excerpt);
+
+			// excerpt related
+			LM_excerpt.manage( excerpt_inputbox, excerpt_chars_counter, excerpt_error_content );
+
+			complete_edit_linkbox.attr('href', complete_edit_link + story_id);
+		}
+	}
+}();
+
+
+
+LM_excerpt = function()
+{
+	var chars_limit = LM_config.excerpt_max_length;
+	
+	return {
+		manage : function(input_field, counter_container, error_container)
+		{
+			input_field.limit_chars({
+				limit   : chars_limit,
+				counter : counter_container
+			});
+
+			input_field.keyup(function()
+			{
+				LM_excerpt.validate(input_field, error_container);
+			});
+
+			error_container.hide();
+		},
+
+		validate : function(input_field, error_container)
+		{
+			if( input_field.val().length < 1 || input_field.val().length > chars_limit ) return false;
+
+			input_field.removeClass( 'lm_excerpt_error' );
+			error_container.hide();
+
+			return true;
+		},
+
+		show_error : function(input_field, error_container)
+		{
+			input_field.addClass( 'lm_excerpt_error' ).focus();
+			input_field.spotlight();
+
+			var error_txt;
+
+			if( input_field.val().length < chars_limit )
+				error_txt = 'There should be at least ' + chars_limit + ' characters in the excerpt';
+			else
+				error_txt = 'There can be no more than ' + chars_limit + ' characters in the excerpt';
+
+			error_container.text( error_txt ).show();
+		}
+	}
+}();

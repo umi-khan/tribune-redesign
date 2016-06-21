@@ -1,0 +1,25 @@
+#slideshow
+.social{margin:0px}#picture-gallery{background-color:#333;overflow:hidden;margin:0
+0 10px;clear:both}#picture-gallery .slideshow-container{-moz-user-select:none;-webkit-user-select:none;user-select:none;position:relative}#picture-gallery .slideshow-container
+p.caption{color:#fff;margin:10px
+0 0}#picture-gallery .slideshow-container .nav
+a{background-image:url("../img/gallery-prev-next.png");background-repeat:no-repeat;background-attachment:scroll;background-color:transparent;cursor:pointer;height:100%;opacity:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";filter:alpha(opacity=0);-khtml-opacity:0;-moz-opacity:0;overflow:hidden;position:absolute;top:0;width:64px}#picture-gallery .slideshow-container a.next-item{background-position:right center;right:0}#picture-gallery .slideshow-container a.prev-item{background-position:left center;left:0}#picture-gallery .slideshow-container:hover .nav
+a{opacity:0.7;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";filter:alpha(opacity=70);-khtml-opacity:0.7;-moz-opacity:0.7}#picture-gallery .slideshow-container
+a.disabled{display:none;cursor:default}#picture-gallery .carousel .carousel-pagination{margin:0
+0 1px}#picture-gallery .carousel .items
+.item{border:1px
+solid transparent;opacity:0.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter:alpha(opacity=50);-khtml-opacity:0.5;-moz-opacity:0.5;margin:0}#picture-gallery .carousel .items .current,
+#picture-gallery .carousel .items .item:hover{border-color:#ff9b13;opacity:1;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";filter:alpha(opacity=100);-khtml-opacity:1;-moz-opacity:1}#picture-gallery .carousel a.prev,
+#picture-gallery .carousel a.next,
+#picture-gallery .carousel + a.prev,
+#picture-gallery .carousel + a.next,
+#picture-gallery  a.carousel-vertical-prev,
+#picture-gallery .carousel-vertical + a.prev,
+#picture-gallery  a.carousel-vertical-next, #picture-gallery .carousel-vertical+a.next{height:99px}#picture-gallery .carousel a.disabled,
+#picture-gallery .carousel+a.disabled{background-position:-24px top}#picture-gallery .carousel-vertical a.prev,
+#picture-gallery  a.carousel-vertical-prev, #picture-gallery .carousel-vertical + a.prev
+#picture-gallery .carousel-vertical a.next,
+#picture-gallery  a.carousel-vertical-next, #picture-gallery .carousel-vertical+a.next{background-position:-26px top;height:24px}#picture-gallery .carousel-vertical a.disabled,
+#picture-gallery .carousel-vertical + a.disabled,
+#picture-gallery  a.carousel-vertical-prev.disabled,
+#picture-gallery  a.carousel-vertical-next.disabled{background-position:-20px -24px}

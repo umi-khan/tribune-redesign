@@ -1,0 +1,116 @@
+.connect-widget {
+    font-family: "Open Sans",Helvetica,sans-serif;
+    margin-bottom: 30px;
+}
+.span-4 .connect-widget:first-child {
+    margin-top: 0;
+}
+.connect-widget__title {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    margin-top: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    border-bottom: none;
+    display: none;
+}
+.connect-widget__title::before, .connect-widget__title::after {
+    background-color: #979797;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+.connect-widget__title::before {
+    margin-left: -50%;
+    right: 10px;
+}
+.connect-widget__title::after {
+    left: 10px;
+    margin-right: -50%;
+}
+.connect-widget--tvandmovies .connect-widget__title::before {
+    right: 0;
+}
+.connect-widget--tvandmovies .connect-widget__title::after {
+    left: 0;
+}
+.connect-widget__button + .connect-widget__button {
+    margin-top: 6px;
+}
+.connect-widget .logo {
+    display: inline-block;
+    color: #e32;
+    font-weight: bold;
+
+}
+.connect-widget .connect-widget__btn-svg {
+    display: inline-block;
+    color: #fff;
+    height: 20px;
+    margin-right: 10px;
+    position: relative;
+    top: 3px;
+    width: 20px;
+}
+.connect-widget .fa--32 {
+    font-size: 19px;
+    line-height: 29px;
+    margin-right: 0;
+    vertical-align: middle;
+    width: 32px;
+}
+.connect-widget h4 {
+        font-family: "Open Sans",Helvetica,sans-serif;
+}
+.connect-widget .btn {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.btn--facebook, .btn--twitter {
+    border-radius: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 15px 20px;
+    text-decoration:none;
+}
+
+.btn--facebook:hover, .btn--facebook:visited, .btn--twitter:hover, .btn--twitter:visited {
+    color: #fff;
+}
+.btn--facebook {
+    background: none repeat scroll 0 0 #3b5998;
+}
+.btn--facebook:hover {
+    background: none repeat scroll 0 0 #344e86;
+}
+.btn--twitter {
+    background: none repeat scroll 0 0 #00aced;
+}
+.btn--twitter:hover {
+    background: none repeat scroll 0 0 #0099d3;
+}
+
+ 
+.facebook{background-color:#476e9e;}
+.facebook:hover {background-color:#7892c2;}
+.twitter{background-color:#2daae1;}
+.twitter:hover{background-color:#26b8f0;}
+a.btn--facebook span.fb{   background: url("../img/fbtw_sprite.png") no-repeat scroll -74px -6px rgba(0, 0, 0, 0);
+    padding: 11px 35px 11px 11px;}
+a.btn--twitter span.tw{ background: url("../img/fbtw_sprite.png") no-repeat scroll -12px -6px rgba(0, 0, 0, 0);
+    padding: 11px 35px 11px 11px;}
+.no-bottom-border{
+    border-bottom: none;
+    margin-bottom: 10px;
+}

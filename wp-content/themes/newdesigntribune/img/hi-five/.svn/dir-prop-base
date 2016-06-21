@@ -1,0 +1,14 @@
+K 16
+bugtraq:logregex
+V 147
+([Cc]lose[sd]?|[Ff]ix(e?[ds])?|[Rr]e(fs)?|[Rr]e(ferences)?|[Aa]ddresses|[Ss]ee)\s(#|ticket:)(\d+)(((,\s)|(\s&\s)|(\sand\s))(#|ticket:)(\d+))*(\d+)
+
+K 22
+webviewer:pathrevision
+V 47
+http://trac.pluto/browser/%PATH%?rev=%REVISION%
+K 18
+webviewer:revision
+V 38
+http://trac.pluto/changeset/%REVISION%
+END
