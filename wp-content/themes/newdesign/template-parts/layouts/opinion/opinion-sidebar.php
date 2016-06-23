@@ -1,0 +1,1 @@
+<div class="span-8 sidebar last"><?php dynamic_sidebar('Opinion Page Right Sidebar'); ?></div>

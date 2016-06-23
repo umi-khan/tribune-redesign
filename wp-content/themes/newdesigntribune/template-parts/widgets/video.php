@@ -1,0 +1,1 @@
+<div class="col-xs-12 col-lg-12 video clearfix group"><?php get_group( 'videos' ); ?></div>

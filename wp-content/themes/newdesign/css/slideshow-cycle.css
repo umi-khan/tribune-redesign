@@ -1,0 +1,12 @@
+.cycle-slideshow, .cycle-slideshow
+*{}.cycle-slideshow{margin:0
+auto;max-width:100%;min-width:100%;padding:0;position:relative;height:300px;background-color:#000;border-top:3px solid red}.cycle-slideshow
+h2{padding:8px
+10px}.cycle-slideshow h2
+a{color:#fff}.cycle-slideshow
+img{display:block;left:0;padding:0;top:0;width:100%}.cycle-slideshow img:first-child{position:static;z-index:100}.video-pic{display:block;position:relative}.video-pic
+span{background:url('../img/play_icon.png') no-repeat;display:block;position:absolute;z-index:250;width:100px;height:100px;top:30%;left:38%}.cycle-pager{padding:0px;position:absolute;right:0px;top:8px;z-index:500}.cycle-pager
+span{background:none repeat scroll 0% 0% #fff;border-radius:10px;border:2px
+solid white;display:block;float:left;height:8px;margin-right:10px;text-indent: -999em;width:8px}.cycle-pager
+span{background:none repeat scroll 0% 0% white}.cycle-pager span.cycle-pager-active{background:none repeat scroll 0% 0% red}.cycle-pager>*{cursor:pointer}.world .cycle-slideshow{border-color:#3a9bc9}.pakistan .cycle-slideshow{border-color:#949C27}.business .cycle-slideshow{border-color:#367C86}.sports .cycle-slideshow{border-color:#EDB630}.life-style .cycle-slideshow{border-color:#EE8360}.opinion .cycle-slideshow{border-color:#A58162}.magazine .cycle-slideshow{border-color:#633}.picture-story
+.gallery{height:345px}

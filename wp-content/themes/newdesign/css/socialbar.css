@@ -1,0 +1,16 @@
+#socialshare{padding:15px
+0}#socialshare a:hover, #socialshare a:visited{color:#ffffff!important}.ss-button{cursor:pointer;color:#fff;font-family:"Open Sans",arial,sans-serif;font-size:11px;font-weight:bold;padding:8px
+20px 8px 5px;display:inline-block;margin-right:5px;text-decoration:none;text-transform:uppercase;min-width:60px;margin-top: 14px}.facebook{background-color:#3b5998}.facebook:hover{background-color:#344E86}.twitter{background-color:#00aced}.twitter:hover{background-color:#0099D3}.mail{background-color:#646464}.mail:hover{background-color:#525252}@media (max-width: 400px){.mail{display:none}}a.ss-button
+span.fb{padding:11px
+18px 11px 11px;background:url('../img/socialshare.png') no-repeat -35px 3px}a.ss-button
+span.tw{padding:11px
+18px 11px 11px;background:url('../img/socialshare.png') no-repeat -273px 3px}a.ss-button
+span.sh{padding:11px
+18px 11px 11px;background:url('../img/socialshare.png') no-repeat -424px 3px}a.ss-button
+span.ma{padding:11px
+18px 11px 11px;background:url('../img/socialshare.png') no-repeat -364px 3px}a.more_social{border:1px
+solid #999;cursor:pointer;display:inline-block;height:30px;margin:0
+.2em;text-align:center;vertical-align:middle;-webkit-transition: -webkit-transform,0.2s;-moz-transition: -moz-transform,0.2s;-o-transition: -o-transform,0.2s;transition:transform,0.2s}.more_social_secondary{display:inline-block;opacity:0;visibility:hidden;-webkit-transition:opacity,0.1s;-moz-transition:opacity,0.1s;-o-transition:opacity,0.1s;transition:opacity,0.1s}.more_social_secondary.show{opacity:1;visibility:visible;-webkit-transition:opacity,0.1s;-moz-transition:opacity,0.1s;-o-transition:opacity,0.1s;transition:opacity,0.1s}a.more_social.transform{transform:rotate(360deg);transform-origin:50% 50%;-webkit-transition: -webkit-transform,0.2s;-moz-transition: -moz-transform,0.2s;-o-transition: -o-transform,0.2s;transition:transform,0.2s}a.more_social:before{content:url('../img/icon_plus.png')}a.more_social.transform:before{content:url('../img/icon_minus.png')}#socialshare
+.tshare{display:none;font-family:"Open Sans",arial,sans-serif;font-size:10px;margin-right:8px;text-align:center;vertical-align:bottom}#socialshare .tshare
+span.number{display:block;font-size:22px;font-weight:bold;line-height:17px;margin-bottom:0}#socialshare .tshare
+span.text{display:block;font-size:10px;line-height:16px;margin-bottom: -2px}
